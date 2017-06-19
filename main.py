@@ -41,6 +41,10 @@ class DocumentLoader:
         for subdir, dirs, files in os.walk(rootdir):
             for f in files:
                 file_path = os.path.join(subdir, f)
+
+                if not file_path.endswith(".html"):
+                    break
+
                 links, word_list = parser.parse(file_path)
                 #addlinks
                 self.add_words(word_list, file_path)
@@ -48,6 +52,7 @@ class DocumentLoader:
 if __name__ == "__main__":
     doc_loader = DocumentLoader()
     
+    import time
     start = time.time()
     doc_loader.iterate()
     end = time.time()
