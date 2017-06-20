@@ -3,6 +3,9 @@ Created on Jun 19, 2017
 
 @author: Boris Sulicenko
 '''
+from dataStructures.graphEdge import Edge
+from dataStructures.graphVertex import Vertex
+
 
 class Graph:
 
@@ -39,18 +42,18 @@ class Graph:
         return len(adj[v])
     
     def incident_edges(self, v, outgoing=True):
-        adj = self. outgoing if outgoing else self. incoming
-        for edge in adj[v].values( ):
+        adj = self._outgoing if outgoing else self._incoming
+        for edge in adj[v].values():
             yield edge
 
     def insert_vertex(self, x=None):
-        v = self.Vertex(x)
-        self. outgoing[v] = { }
-        if self.is_directed( ):
-            self. incoming[v] = { }
+        v = Vertex(x)
+        self._outgoing[v] = {}
+        if self.is_directed():
+            self._incoming[v] = {}
         return v
 
     def insert_edge(self, u, v, x=None):
-        e = self.Edge(u, v, x)
+        e = Edge(u, v, x)
         self._outgoing[u][v] = e
         self._incoming[v][u] = e   
