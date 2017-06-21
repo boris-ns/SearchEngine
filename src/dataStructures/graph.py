@@ -22,8 +22,15 @@ class Graph:
     def vertices(self):
         return self._outgoing.keys()
     
+    def is_vertex_in_graph(self, path):
+        for k in self.vertices():
+            if k.element().path == path:
+                return k
+            
+        return None
+    
     def edge_count(self):
-        total = sum(len(self. outgoing[v]) for v in self. outgoing)
+        total = sum(len(self._outgoing[v]) for v in self._outgoing)
         return total if self.is_directed( ) else total // 2
     
     def edges(self):

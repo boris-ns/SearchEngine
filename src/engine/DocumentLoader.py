@@ -18,6 +18,7 @@ class DocumentLoader:
 
     def add_words(self, word_list, doc_path):
         for word in word_list:
+            word = word.lower()
             try:
                 self.words[word]
                 flag = False # da li vec postoji putanja
@@ -44,5 +45,5 @@ class DocumentLoader:
                     continue
                 
                 links, word_list = self.parser.parse(file_path)
-                self.add_words(word_list, file_path)
-                self.add_links(file_path, links)
+                self.add_words(word_list, os.path.abspath(file_path))
+                self.add_links(os.path.abspath(file_path), links)

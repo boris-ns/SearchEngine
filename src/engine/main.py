@@ -25,17 +25,15 @@ if __name__ == "__main__":
     end = time.time()
     
     print "Vreme prolaska kroz fajlove: " + str(end - start) + "s"
-    '''
-    '''
+    
     # NAPOMENA: Upis u fajl
-    pickle.dump(doc_loader.documents, open("../../documents.dat", "wb"))
-    pickle.dump(doc_loader.words, open("../../words.dat", "wb"))
+    #pickle.dump(doc_loader.documents, open("../../documents.dat", "wb"))
+    #pickle.dump(doc_loader.words, open("../../words.dat", "wb"))
     '''
     
     # NAPOMENA: Fajlovi u kojima se vec nalaze isparsirani podaci
     doc_loader.words = pickle.load(open("../../words.dat", "rb"))
     doc_loader.documents = pickle.load(open("../../documents.dat", "rb"))
-    
-    
+        
     search_engine = SearchEngine(doc_loader.words, doc_loader.documents)
     search_engine.start_search()

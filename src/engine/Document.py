@@ -10,3 +10,15 @@ class Document:
         self.path = path
         self.links = links
         self.score = score
+
+    def __eq__(self, other):
+        return self.score == other.score
+    
+    def __ne__(self, other):
+        return not self.score == other.score
+    
+    def __lt__(self, other):
+        return self.score < other.score
+    
+    def __gt__(self, other):
+        return self.score > other.score
