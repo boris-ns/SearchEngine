@@ -18,7 +18,7 @@ if __name__ == "__main__":
     
     print "Loading..."
     
-    '''
+    """
     # NAPOMENA: Ucitavanje i parsiranje svih fajlova
     start = time.time()
     doc_loader.iterate('../../html_files/')
@@ -29,11 +29,14 @@ if __name__ == "__main__":
     # NAPOMENA: Upis u fajl
     #pickle.dump(doc_loader.documents, open("../../documents.dat", "wb"))
     #pickle.dump(doc_loader.words, open("../../words.dat", "wb"))
-    '''
-    
+    """
     # NAPOMENA: Fajlovi u kojima se vec nalaze isparsirani podaci
     doc_loader.words = pickle.load(open("../../words.dat", "rb"))
     doc_loader.documents = pickle.load(open("../../documents.dat", "rb"))
         
     search_engine = SearchEngine(doc_loader.words, doc_loader.documents)
-    search_engine.start_search()
+    
+    end = True
+    while end:
+        end = search_engine.start_search()
+        search_engine.reset()

@@ -27,11 +27,11 @@ class DocumentLoader:
                         flag = True
                 
                 if not flag:
-                    self.words[word].append(Word(doc_path, word_list.count(word)))
+                    self.words[word].append(Word(word, doc_path, word_list.count(word)))
                     
             except KeyError:
                 self.words[word] = []
-                self.words[word].append(Word(doc_path, word_list.count(word)))
+                self.words[word].append(Word(word, doc_path, word_list.count(word)))
 
     def add_links(self, file_path, links):
         self.documents[file_path] = Document(file_path, links, 0)

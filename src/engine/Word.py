@@ -5,7 +5,8 @@ Created on Jun 20, 2017
 '''
 
 class Word:
-    def __init__(self, doc_path, number):
+    def __init__(self, word, doc_path, number):
+        self.word = word
         self.doc_path = doc_path
         self.number = number
 
