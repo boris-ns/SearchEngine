@@ -17,8 +17,8 @@ class DocumentLoader:
         self.parser = Parser()
 
     def add_words(self, word_list, doc_path):
-        for word in word_list:
-            word = word.lower()
+        word_list_lower = [x.lower() for x in word_list]
+        for word in word_list_lower:
             try:
                 self.words[word]
                 flag = False # da li vec postoji putanja
@@ -27,7 +27,7 @@ class DocumentLoader:
                         flag = True
                 
                 if not flag:
-                    self.words[word].append(Word(word, doc_path, word_list.count(word)))
+                    self.words[word].append(Word(word, doc_path, word_list_lower.count(word)))
                     
             except KeyError:
                 self.words[word] = []

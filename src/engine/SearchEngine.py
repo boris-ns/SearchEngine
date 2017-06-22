@@ -11,7 +11,7 @@ class SearchEngine:
         self.words = words
         self.documents = documents
         
-        self.prepare_doc_scores()
+        #self.prepare_doc_scores() # TODO: Heuristics, you can uncomment this if you want
 
     def prepare_doc_scores(self):
         # Smanjuje skor svakog dokumenta za broj linkova koje sadrzi
@@ -21,7 +21,7 @@ class SearchEngine:
     def add_word_count_to_score(self, word):
         # Povecava skor svakog dokumenta za broj ponavljanja trazene reci
         for d in self.words[word.strip()]:
-            self.documents[d.doc_path].score += d.number
+            self.documents[d.doc_path].score += d.number * 4 # TODO: Heuristics, you can remove *4 if you want
             
     def check_if_word_exists(self, words):
         try:
@@ -33,7 +33,7 @@ class SearchEngine:
         return True
     
     def print_docs_with_word(self, docs):
-        print "Br.dokumenata koji sadrzi trazene reci: " + str(len(docs))
+        print "Number of documents: " + str(len(docs))
         
         docs_to_print = []
         for d in docs:
@@ -47,7 +47,7 @@ class SearchEngine:
             c += 1
             
     def start_search(self):
-        word_to_find = raw_input("\nUnesite rec za pretragu: ")
+        word_to_find = raw_input("\nEnter words to search: ")
         word_to_find = word_to_find.lower()
         words_to_find = self.split_input(word_to_find)
         
@@ -55,10 +55,10 @@ class SearchEngine:
             return False
     
         if not self.check_if_word_exists(words_to_find):
-            print "Ne postoji ni 1 fajl sa unetim recima."
+            print "Files not found."
             return True
 
-        print "\nRezultat pretrage:\n"
+        print "\nResults:\n"
         
         all_docs = []
         for w in words_to_find:
@@ -100,10 +100,12 @@ class SearchEngine:
             for link_path in self.documents[doc.doc_path].links:
                 v2 = graph.is_vertex_in_graph(link_path)
                 if v2 == None: # Nije u grafu
-                    v2 = graph.insert_vertex(self.documents[doc.doc_path])
-                    graph.insert_edge(v1, v2)
+                    #v2 = graph.insert_vertex(self.documents[doc.doc_path])
+                    #graph.insert_edge(v1, v2)
+                    continue
                 else:
                     graph.insert_edge(v1, v2)
+
 
         #print "Edges count " + str(graph.edge_count())
         #print "Vertex count " + str(graph.vertex_count())
@@ -123,8 +125,8 @@ class SearchEngine:
                     
                 num_of_words += self.find_word_count(origin_vertex, doc.word)
                 
-            self.documents[doc.doc_path].score += num_of_edges
-            self.documents[doc.doc_path].score += num_of_words
+            self.documents[doc.doc_path].score += num_of_edges * 2 # TODO: Heuristics, you can remove *2 if you want
+            self.documents[doc.doc_path].score += num_of_words 
             
     def find_word_count(self, origin_vertex, word_to_find):
         c = 0
